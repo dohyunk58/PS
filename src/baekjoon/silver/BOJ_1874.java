@@ -10,36 +10,29 @@ public class BOJ_1874 {
         int n = Integer.parseInt(br.readLine());
         ArrayStack stack = new ArrayStack(n);
 
-        int counter = 1;
         int index = 1;
         stack.push(1); sb.append("+\n");
-        int number = Integer.parseInt(br.readLine());
-        while(true) {
-            if(number == stack.peek()) {
-                sb.append("-\n");
-                int popNum = stack.pop();
+        int number;
+        for(int i = 0; i < n; i++) {
 
-                counter++;
-                if(counter > n) {
-                    System.out.println(sb);
-                    break;
-                }
+            number = Integer.parseInt(br.readLine());
 
-                // 다음 숫자로 넘어감
-                number = Integer.parseInt(br.readLine());
-                // 입력값 검증
-                if(number > n) {
-                    System.out.println("NO");
-                    break;
+            if(number > stack.peek()) {
+                // number를 추가할 때까지 push
+                while(number > index) {
+                    sb.append("+\n");
+                    stack.push(++index);
                 }
-            } else if(number > stack.peek()) {
-                sb.append("+\n");
-                stack.push(++index);
             } else if(number < stack.peek()) {
                 System.out.println("NO");
-                break;
+                return;
             }
+
+            // peek 값이 찾는 값인 경우
+            sb.append("-\n");
+            stack.pop();
         }
+        System.out.println(sb);
     }
 
     static class ArrayStack {
