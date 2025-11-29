@@ -1,5 +1,11 @@
 package baekjoon.gold;
 
+/*
+수열의 요소를 하나씩 탐색하며
+1) 오큰수를 찾음: 스택 peek 값보다 수열 요소가 더 큰 경우, pop하며 결과 배열에 pop한 숫자에 대한 오큰수를 저장한다
+2) 오큰수를 찾지 못함: 스택에 수열 요소를 push
+ */
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,20 +30,17 @@ public class BOJ_17298 {
         for(int i = 0; i < n; i++) {
             int number = arr[i]; // 이번 회차에 비교할 숫자
 
-            // 스택이 비어있거나 스택 top에 해당하는 숫자가 더 크다면 이번 숫자를 스택에 넣음
-            if(stack.isEmpty() || arr[stack.peek()] >= number) {
-                stack.push(i);
-            } else if(arr[stack.peek()] < number) { // 오큰수를 찾음
+            // 오큰수를 찾는 경우: 스택에 해당하는 숫자보다 큰 수를 찾았을 때
+            if(!stack.isEmpty() && (arr[stack.peek()] < number)) {
                 // 스택 top에 해당하는 숫자가 비교하는 숫자와 작으면 비교하는 숫자가 오큰수이므로 스택 내에 동일한 조건의 수를 모두 처리함
                 while(!stack.isEmpty() && arr[stack.peek()] < number) {
                     // 오큰수를 찾으면 인덱스를 반환받아서 결과 배열 해당 인덱스에 비교하는 수를 넣음
                     int index = stack.pop();
                     result[index] = number;
                 }
-
-                // 다 끝났다면 number의 인덱스를 stack에 넣는다
-                stack.push(i);
             }
+
+            stack.push(i);
         }
 
         // 반복이 다 끝나고 여전히 스택에 남아있는 인덱스는 오큰수가 없으므로 -1을 저장한다.
