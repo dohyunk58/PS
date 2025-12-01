@@ -48,7 +48,8 @@ public class BOJ_11286 {
             while(current > 1) {
                 int parent = current / 2;
 
-                if(!isSmallerAbs(parent, current)) {
+                // parent가 current보다 더 큰 수를 갖고 있다 = 더 낮은 우선순위 => 둘을 바꾸기
+                if(compare(parent, current) > 0) {
                     swap(parent, current);
                     current = parent;
                 } else {
@@ -74,12 +75,13 @@ public class BOJ_11286 {
                 int smallerChild = leftChild;
 
                 // 오른쪽 자식이 있을 때, 오른쪽이 왼쪽보다 더 크면 더 작은 쪽과 비교해야 함
-                if(rightChild <= size && !isSmallerAbs(leftChild, rightChild)) {
+                // 왼쪽이 더 큰 수(더 낮은 우선도)이면 변경
+                if(rightChild <= size && compare(leftChild, rightChild) > 0) {
                     smallerChild = rightChild;
                 }
 
                 // 부모가 (작은)자식보다 크면 교환
-                if(!isSmallerAbs(current, smallerChild)) {
+                if(compare(current, smallerChild) > 0) {
                     swap(current, smallerChild);
                     current = smallerChild; // 자식으로 인덱스 이동
                 } else {
@@ -103,18 +105,16 @@ public class BOJ_11286 {
             System.out.println();
         }
 
-        // 왼쪽 요소의 절대값이 더 작은지 반환
-        // 만약 절대값이 같은 경우 왼쪽 요소의 값이 더 작은지 반환
-        private boolean isSmallerAbs(int left, int right) {
-            if(Math.abs(heap[left]) == Math.abs(heap[right])) {
-                return isSmaller(left, right);
-            } else {
-                return Math.abs(heap[left]) < Math.abs(heap[right]);
-            }
-        }
+        private int compare(int index1, int index2) {
+            int abs1 = Math.abs(heap[index1]);
+            int abs2 = Math.abs(heap[index2]);
 
-        private boolean isSmaller(int left, int right) {
-            return heap[left] < heap[right];
+            if(abs1 != abs2) { // abs1이 더 크면 양수 작으면 음수
+                return abs1 - abs2;
+            }
+
+            // 둘의 절대값이 같으면 index1이 더 큰수면 양수 작으면 음수
+            return heap[index1] - heap[index2];
         }
     }
 }
