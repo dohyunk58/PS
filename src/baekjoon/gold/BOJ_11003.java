@@ -1,4 +1,4 @@
-package baekjoon.platinum;
+package baekjoon.gold;
 
 import java.io.*;
 import java.util.Deque;
