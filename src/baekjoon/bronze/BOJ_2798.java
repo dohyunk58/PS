@@ -26,18 +26,17 @@ public class BOJ_2798 {
     private static int find (int[] numbers, int n, int m) {
         int answer = 0;
         for(int i = 0; i < n-2; i++) {
-            int num1 = numbers[i];
-            if(num1 >= m) continue;
+            if(numbers[i] >= m) continue;
+
             for(int j = i + 1; j < n-1; j++) {
-                int num2 = numbers[j];
-                if(num1 + num2 >= m) continue;
+                if(numbers[i] + numbers[j] >= m) continue;
+
                 for(int k = j  + 1; k < n; k++) {
-                    int num3 = numbers[k];
-                    int sum = num1 + num2 + num3;
-                    if(sum > m) continue;
-                    else if(sum == m) {
+                    int sum = numbers[i] + numbers[j] + numbers[k];
+
+                    if(sum == m) {
                         return sum;
-                    } else if (m - answer > m - sum) {
+                    } else if (sum < m && answer < sum) {
                         answer = sum;
                     }
                 }
