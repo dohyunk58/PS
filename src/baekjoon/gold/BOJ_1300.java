@@ -11,19 +11,21 @@ public class BOJ_1300 {
         int n = Integer.parseInt(br.readLine());
         int k = Integer.parseInt(br.readLine());
 
-        int start = 1; int end = k; // NxN에서 k번째 수는 k보다 크지는 않음
+        int start = 1; int end = k;// NxN에서 k번째 수는 k보다 크지는 않음
+        int answer = 0;
         while (start <= end) {
             int mid = (start + end) / 2;
 
             int smallerCnt = findSmallerNumber(n, mid);
-            if (smallerCnt < k) {
+            if (smallerCnt < k) { // 중앙값보다 작은 수의 개수 < k
                 start = mid + 1;
-            } else {
+            } else { // 중앙값보다 작은 수의 개수 >= k
                 end = mid - 1;
+                answer = mid;
             }
         }
 
-        System.out.print(start);
+        System.out.print(answer);
     }
 
     public static int findSmallerNumber (int n, int x) {
