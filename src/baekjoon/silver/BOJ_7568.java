@@ -24,22 +24,19 @@ public class BOJ_7568 {
             people[i][0] = w;
             people[i][1] = h;
         }
-
-        int[] count = new int[n];
+        br.close();
 
         // 비교
         for (int i = 0; i < n; i++) {
+            int count = 1;
             for (int j = 0; j < n; j++) {
                 if (j == i) continue; // 자신 제외
 
                 if (people[i][0] < people[j][0] && people[i][1] < people[j][1]) {
-                    count[i]++;
+                    count++;
                 }
             }
-        }
-
-        for (int i = 0; i < n; i++) {
-            sb.append(count[i]+1).append(" ");
+            sb.append(count).append(" ");
         }
         System.out.print(sb);
     }
