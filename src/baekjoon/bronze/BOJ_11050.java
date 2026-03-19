@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-// nCk = n! / (k! * (n-k)!)
 public class BOJ_11050 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,16 +13,16 @@ public class BOJ_11050 {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
-        long result = factorial(n) / (factorial(k) * factorial(n-k));
-        System.out.println(result);
-    }
+        int[][] D = new int[n + 1][n + 1];
 
-    private static long factorial(int a) {
-        if(a <= 0) return 1;
-        long result = 1;
-        for(int i = 1; i <= a; i++) {
-            result *= i;
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) D[i][j] = 1; // nC0 = nCn = 1
+                else if (j == 1) D[i][j] = i; // nC1 = n
+                else D[i][j] = D[i - 1][j] + D[i - 1][j - 1];
+            }
         }
-        return result;
+
+        System.out.print(D[n][k]);
     }
 }
