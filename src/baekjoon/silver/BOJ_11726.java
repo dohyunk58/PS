@@ -9,26 +9,18 @@ public class BOJ_11726 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int n = Integer.parseInt(br.readLine());
+        br.close();
 
-        if (n == 1) {
-            System.out.print(1);
-            return;
-        } else if (n == 2) {
-            System.out.print(2);
-            return;
-        }
+        int[] D = new int[n+1];
+        D[1] = 1;
+        if (n >= 2) D[2] = 2;
 
-        int prev2 = 1; // 직전 두 번째 값
-        int prev1 = 2; // 직전 값
-        int current = 0;
-
+        // D[n-1]: 2x1이 남은 상황, 세로 블럭을 넣는 경우만 있다.
+        // D[n-2]: 2x2가 남은 상황, 세로/가로 블럭을 2개 배치하는 경우가 있으나 세로 블럭을 2개 놓는 경우는 D[n-1]에서 다루므로 중복을 제거한다.
         for (int i = 3; i <= n; i++) {
-            current = (prev1 + prev2) % 10007;
-            // 한 칸씩 뒤로 미루기
-            prev2 = prev1;
-            prev1 = current;
+            D[i] = (D[i-1] + D[i-2]) % 10007;
         }
 
-        System.out.print(current);
+        System.out.print(D[n]);
     }
 }
