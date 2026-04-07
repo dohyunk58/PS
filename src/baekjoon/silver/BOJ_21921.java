@@ -27,8 +27,8 @@ public class BOJ_21921 {
         // 1~k의 합부터 1개씩 옮겨가며 n까지 확인
         int maxSum = sums[k];
         int maxCnt = 1;
-        for (int i = 1; i <= n - k; i++) {
-            int nowSum = sums[k + i] - sums[i];
+        for (int i = k+1; i <= n; i++) {
+            int nowSum = sums[i] - sums[i - k];
             // 이전 합보다 크다면 변경
             if (nowSum > maxSum) {
                 maxSum = nowSum;
