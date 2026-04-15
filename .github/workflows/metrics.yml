@@ -2,6 +2,8 @@ name: PS Metrics
 on:
   schedule: [{cron: "0 0 * * *"}] # 매일 자정 갱신
   workflow_dispatch: # 수동 실행 가능
+permissions:
+  contents: write
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
@@ -13,4 +15,4 @@ jobs:
           base: "" # 기본 프로필 통계 숨김
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year # 1년치 표시
-          repositories_list: PS # PS 레포지토리만 지정
+          repositories_list: PS
