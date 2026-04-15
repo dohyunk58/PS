@@ -15,4 +15,4 @@ jobs:
           base: "" # 기본 프로필 통계 숨김
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year # 1년치 표시
-          repositories_list: PS
+          repositories: PS
