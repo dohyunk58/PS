@@ -14,5 +14,5 @@ jobs:
           filename: metrics.plugin.calendar.full.svg
           base: "" # 기본 프로필 통계 숨김
           plugin_calendar: yes
-          plugin_calendar_limit: 1 # 1년치
+          plugin_calendar_limit: 0
           repositories: PS
