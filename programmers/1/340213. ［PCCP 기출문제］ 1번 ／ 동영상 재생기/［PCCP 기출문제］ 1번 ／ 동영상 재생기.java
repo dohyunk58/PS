@@ -1,69 +1,46 @@
 import java.util.StringTokenizer;
 
 class Solution {
-    static int len;
-    static int currentTime;
-    static int opStart;
-    static int opEnd;
-    
+    private int len;
+    private int currentTime;
+    private int opStart;
+    private int opEnd;
+
     public String solution(String video_len, String pos, String op_start, String op_end, String[] commands) {
-        len = hourToMin(video_len);
-        currentTime = hourToMin(pos);
-        opStart = hourToMin(op_start);
-        opEnd = hourToMin(op_end);
-        
+        this.len = toSeconds(video_len);
+        this.currentTime = toSeconds(pos);
+        this.opStart = toSeconds(op_start);
+        this.opEnd = toSeconds(op_end);
+
         opSkip();
-        for (int i = 0; i < commands.length; i++) {
-            if (commands[i].equals("prev")) prev();
-            else next();
+
+        for (String cmd : commands) {
+            if (cmd.equals("prev")) {
+                currentTime = Math.max(0, currentTime - 10);
+            } else {
+                currentTime = Math.min(len, currentTime + 10);
+            }
             opSkip();
         }
-        
-        String answer = minToHour(currentTime);
-        return answer;
+
+        return formatTime(currentTime);
     }
-    
-    // prev
-    private void prev() {
-        currentTime -= 10;
-        if (currentTime < 0) currentTime = 0;
-    }
-    
-    // next
-    private void next() {
-        currentTime += 10;
-        if (currentTime > len) currentTime = len;
-    }
-    
+
     // opSkip
     private void opSkip() {
         if (currentTime >= opStart && currentTime < opEnd) {
             currentTime = opEnd;
         }
     }
-    
-    // 문자열 hh:mm -> int min
-    private int hourToMin(String time) {
-        StringTokenizer st = new StringTokenizer(time, ":");
-        int h = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        return h * 60 + m;
+
+    // 문자열 mm:ss -> int sec
+    private int toSeconds(String time) {
+        String[] parts = time.split(":");
+        return Integer.parseInt(parts[0]) * 60 + Integer.parseInt(parts[1]);
     }
-    
+
     // int min -> 문자열 hh:mm
-    private String minToHour(int min) {
-        int h = min / 60;
-        int m = min % 60;
-        String strH = Integer.toString(h);
-        String strM = Integer.toString(m);
-        
-        if (h < 10) {
-            strH = "0" + strH;
-        }
-        if (m < 10) {
-            strM = "0" + strM;
-        }
-        
-        return (strH + ":" + strM);
+    private String formatTime(int sec) {
+        return String.format("%02d:%02d", sec / 60, sec % 60);
     }
 }
