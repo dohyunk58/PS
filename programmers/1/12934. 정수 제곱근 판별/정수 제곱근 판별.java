@@ -1,12 +1,12 @@
 class Solution {
     public long solution(long n) {
-        long answer = 0;
-        if (Math.sqrt(n) % 1.0 == 0) {
-            answer = (long)Math.pow((long)Math.sqrt(n) + 1, 2);
-        } else {
-            answer = -1;
+        long sqrt = (long) Math.sqrt(n);
+
+        // 다시 제곱했을 때 n이 나오면 n은 정수의 제곱수
+        if (sqrt * sqrt == n) {
+            return (sqrt + 1) * (sqrt + 1);
         }
-        
-        return answer;
+
+        return -1;
     }
 }
