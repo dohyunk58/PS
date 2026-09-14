@@ -1,6 +1,6 @@
 name: PS Metrics
 on:
-  schedule: [{cron: "0 0 * * *"}] # 매일 자정 갱신
+  # schedule: [{cron: "0 0 * * *"}] # 매일 자정 갱신
   workflow_dispatch: # 수동 실행 가능
 permissions:
   contents: write
